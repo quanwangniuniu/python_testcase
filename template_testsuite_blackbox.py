@@ -199,15 +199,14 @@ class TestScoreContributors(unittest.TestCase):
         # Refer to the docstring of the `score_contributors` function, which can be found above
         # In this assignment, we are less interested in the assertions, and more interested in the selection of input values.
         #
-        # score_contributors(TimeGranularity.MONTH, Scope.REPOSITORY,
-        #                    Metric.COMMITS)  # note that this example can be deleted from your answer
-
         # For 2-way testing, we need to test all possible pairs of parameter values.
         # time_granularity: DAY, WEEK, MONTH, QUARTER, YEAR (5 values)
         # scope: REPOSITORY, ORGANIZATION (2 values)
         # metric: COMMITS, PULL_REQUESTS, ISSUES, COMPOSITE (4 values)
+        
+        # Total pairs required: 10 (TG×S) + 20 (TG×M) + 8 (S×M) = 38 pairs
 
-        # Test all pairs of time_granularity and scope
+        # Test all pairs of time_granularity and scope (10 pairs)
         score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.COMMITS)
         score_contributors(TimeGranularity.WEEK, Scope.REPOSITORY, Metric.COMMITS)
@@ -219,43 +218,53 @@ class TestScoreContributors(unittest.TestCase):
         score_contributors(TimeGranularity.YEAR, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.YEAR, Scope.ORGANIZATION, Metric.COMMITS)
 
-        # Test all pairs of time_granularity and metric
+        # Test all pairs of time_granularity and metric (20 pairs)
+        # DAY with all metrics
+        score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.PULL_REQUESTS)
         score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.ISSUES)
         score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.COMPOSITE)
+        
+        # WEEK with all metrics
+        score_contributors(TimeGranularity.WEEK, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.WEEK, Scope.REPOSITORY, Metric.PULL_REQUESTS)
         score_contributors(TimeGranularity.WEEK, Scope.REPOSITORY, Metric.ISSUES)
         score_contributors(TimeGranularity.WEEK, Scope.REPOSITORY, Metric.COMPOSITE)
+        
+        # MONTH with all metrics
+        score_contributors(TimeGranularity.MONTH, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.MONTH, Scope.REPOSITORY, Metric.PULL_REQUESTS)
         score_contributors(TimeGranularity.MONTH, Scope.REPOSITORY, Metric.ISSUES)
         score_contributors(TimeGranularity.MONTH, Scope.REPOSITORY, Metric.COMPOSITE)
+        
+        # QUARTER with all metrics
+        score_contributors(TimeGranularity.QUARTER, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.QUARTER, Scope.REPOSITORY, Metric.PULL_REQUESTS)
         score_contributors(TimeGranularity.QUARTER, Scope.REPOSITORY, Metric.ISSUES)
         score_contributors(TimeGranularity.QUARTER, Scope.REPOSITORY, Metric.COMPOSITE)
+        
+        # YEAR with all metrics
+        score_contributors(TimeGranularity.YEAR, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.YEAR, Scope.REPOSITORY, Metric.PULL_REQUESTS)
         score_contributors(TimeGranularity.YEAR, Scope.REPOSITORY, Metric.ISSUES)
         score_contributors(TimeGranularity.YEAR, Scope.REPOSITORY, Metric.COMPOSITE)
 
-        # Test all pairs of scope and metric
-        score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.PULL_REQUESTS)
-        score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.ISSUES)
-        score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.COMPOSITE)
+        # Test all pairs of scope and metric (8 pairs)
+        # REPOSITORY with all metrics
+        score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.COMMITS)
         score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.PULL_REQUESTS)
         score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.ISSUES)
         score_contributors(TimeGranularity.DAY, Scope.REPOSITORY, Metric.COMPOSITE)
+        
+        # ORGANIZATION with all metrics
+        score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.COMMITS)
+        score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.PULL_REQUESTS)
+        score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.ISSUES)
+        score_contributors(TimeGranularity.DAY, Scope.ORGANIZATION, Metric.COMPOSITE)
 
     def test_stats_available(self):
         # Question 4: For the function `are_stats_available`, write a decision table.
         # Question 4a. Write out the table in markdown
-        #  ??? TODO
-        # | Conditions                     | R1 | R2 | R3 | R4 |
-        # |--------------------------------|----|----|----|----|
-        # |                                |    |    |    |    |
-        # |                                |    |    |    |    |
-        # |                                |    |    |    |    |
-        # |                                |    |    |    |    |
-        #
-
         # Decision Table for are_stats_available:
         # | Conditions                                | R1 | R2 | R3 | R4 |
         # |-------------------------------------------|----|----|----|----|
@@ -272,9 +281,6 @@ class TestScoreContributors(unittest.TestCase):
         # Note: If you notice any ambiguity, add a comment documenting your assumptions.
         #
         # After each test case, add a comment to indicate which column of the decision table
-        # Example:
-        # are_stats_available("public_org/nonempty_repo1",
-        #                     "public_org_developer")  # R1  # note that this example can be deleted from your answer
 
         # Test case for R1: Repository belongs to public org, repository is not empty
         are_stats_available("public_org/nonempty_repo1", "any_user")  # R1
